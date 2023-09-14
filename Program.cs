@@ -1,7 +1,5 @@
 using System.Reflection;
-using Application.Hubs;
 using MassTransit;
-using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.EntityFrameworkCore;
 using NotificationService.Application.Consumers;
 using NotificationService.Application.Services.Implementation;
@@ -39,7 +37,6 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<EmailConsumer>();
-    //x.AddConsumer<EmailErrorsConsumer>();
     
     x.UsingRabbitMq((context, cfg) =>
     {
@@ -69,10 +66,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.MapHub<NotificationHub>("/hub", options =>
-{
-    options.Transports = HttpTransportType.LongPolling;
-});
 
 app.Run();
