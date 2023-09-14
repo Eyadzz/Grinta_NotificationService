@@ -40,7 +40,7 @@ builder.Services.AddMassTransit(x =>
     
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host(new Uri(Environment.GetEnvironmentVariable("RABBITMQ_CONNECTION_STRING", EnvironmentVariableTarget.Process) ?? "rabbitmq://guest:guest@213.168.249.135:5672/"));
+        cfg.Host(new Uri(Environment.GetEnvironmentVariable("RABBITMQ_CONNECTION_STRING", EnvironmentVariableTarget.Process) ?? "rabbitmq://guest:guest@localhost:5672/"));
         cfg.ReceiveEndpoint("notifications", e =>
         {
             e.ConfigureConsumer<EmailConsumer>(context);
